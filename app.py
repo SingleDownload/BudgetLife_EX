@@ -293,7 +293,8 @@ elif tab == "🔍 EDA & Data Preparation":
         st.caption("🔎 Even high-income groups show 15-20% saving ≤10% — overspending is behavioral, not income-driven.")
     with co2:
         cr2 = pd.crosstab(df["Q6_Monthly_Income"], df["Q25_BudgetLife_Interest"], normalize="index")*100
-        cr2 = cr2.reindex(columns=[c for c in io_ if c in cr2.columns]).reindex([c for c in inc_order if c in cr2.index])
+        int_order = ["Definitely Yes","Probably Yes","Maybe","Probably No","Definitely No"]
+        cr2 = cr2.reindex(columns=[c for c in int_order if c in cr2.columns]).reindex([c for c in inc_order if c in cr2.index])
         fig = px.bar(cr2, barmode="stack", color_discrete_sequence=["#27AE60","#82E0AA","#F9E79F","#E67E22","#E74C3C"], title="Interest by Income (%)")
         fig.update_layout(height=400, yaxis_title="%", xaxis_tickangle=-15, legend_title="Interest"); st.plotly_chart(fig, use_container_width=True)
         st.caption("🔎 Mid-income = highest 'Definitely Yes' — they value tools but face enough pressure to need them.")
